@@ -1,0 +1,44 @@
+﻿@page "/"
+@using HtmlAgilityPack
+@using Microsoft.AspNetCore.Hosting
+@using System.IO
+
+@inject IWebHostEnvironment Env
+
+
+<h1>StreamWriter Save Test</h1>
+<button type="button" class="btn btn-primary" @onclick="DoSomething">Do Something</button>
+
+
+<div>And the counter is @c.ToString()</div>
+
+@code
+{
+
+    int c = 0;
+
+
+    protected override void OnInitialized()
+    {
+        c = 10;
+    }
+    private void DoSomething()
+    {
+        var doc = new HtmlDocument();
+        var node = HtmlNode.CreateNode("<html><head></head><body><h1>Test</h1></body></html>");
+        doc.DocumentNode.AppendChild(node);
+
+        var path = Path.Combine(Env.WebRootPath, "test.html");
+
+
+        using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.UTF8))
+        {
+            sw.Write("test");
+           
+        }
+
+       
+        c = 5;
+
+    }
+}
