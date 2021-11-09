@@ -31,13 +31,12 @@
         var path = Path.Combine(Env.WebRootPath, "test.html");
 
 
-        using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.UTF8))
-        {
-            sw.Write("test");
-           
-        }
+        StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.UTF8);
+        sw.Write("test");
+        sw.Flush();   // <--  This causes the component to reload.
 
-       
+
+
         c = 5;
 
     }
